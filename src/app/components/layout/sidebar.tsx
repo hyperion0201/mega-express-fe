@@ -25,6 +25,8 @@ import {
   Row,
   Col,
 } from "antd"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
 
 const { Header, Sider, Content } = Layout
 const { Search } = Input
@@ -52,6 +54,7 @@ const Sidebar: React.FC = ({ children }) => {
   const {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken()
+  const path = usePathname()
 
   return (
     <Layout style={{ minHeight: "100vh" }}>
@@ -60,12 +63,13 @@ const Sidebar: React.FC = ({ children }) => {
         <Menu
           theme="dark"
           mode="inline"
+          selectedKeys={[path]}
           defaultSelectedKeys={["1"]}
           items={[
             {
-              key: "1",
+              key: "/",
               icon: <UserOutlined />,
-              label: "Trang chủ",
+              label: <Link href={"/"}>Trang chủ</Link>,
             },
             {
               key: "2",
@@ -78,9 +82,9 @@ const Sidebar: React.FC = ({ children }) => {
               label: "Import vận đơn",
             },
             {
-              key: "4",
+              key: "/quan-ly-don",
               icon: <GroupOutlined />,
-              label: "Quản lý đơn",
+              label: <Link href={"/quan-ly-don"}>Quản lý đơn</Link>,
             },
             {
               key: "5",
@@ -103,26 +107,32 @@ const Sidebar: React.FC = ({ children }) => {
       </Sider>
       <Layout>
         <Header style={{ padding: 0, background: colorBgContainer }}>
-          <Row justify={'space-between'}>
+          <Row justify={"space-between"}>
             <Col>
-            <Button
-            type="text"
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{
-              fontSize: '16px',
-              width: 64,
-              height: 64,
-            }}
-          /></Col>
+              <Button
+                type="text"
+                icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                onClick={() => setCollapsed(!collapsed)}
+                style={{
+                  fontSize: "16px",
+                  width: 64,
+                  height: 64,
+                }}
+              />
+            </Col>
             <Col>
               <Space>
-                <Search style={{ display: 'block'}} placeholder="Tìm vận đơn" enterButton="Tìm kiếm" size='large' />
+                <Search
+                  style={{ display: "block" }}
+                  placeholder="Tìm vận đơn"
+                  enterButton="Tìm kiếm"
+                  size="large"
+                />
               </Space>
             </Col>
-            <Col style={{paddingRight: 10}}>
+            <Col style={{ paddingRight: 10 }}>
               <Space>
-              <Avatar icon={<UserOutlined />} />
+                <Avatar icon={<UserOutlined />} />
               </Space>
             </Col>
           </Row>
